@@ -1,6 +1,11 @@
 import React from "react";
 
-function ColorList() {
+function ColorItem(props) { //helper COMPONENT
+  console.log(props) //each color is pulled in.  They already have a key from the colorElements map.
+  return <li style={{color: props.color}}>{props.color}</li> //colors with style, name, and key/id are returned
+}
+
+function ColorList() { //main COMPONENT gets rendered in App
   const colors = [
     "firebrick",
     "rebeccapurple",
@@ -9,15 +14,15 @@ function ColorList() {
     "hotpink",
   ];
 
+  const colorElements = colors.map((color) => {
+    return <ColorItem key={color} color={color} /> //props get sent to ColorItem component (above)^, callback, variable gets sent down to return of ColorList 
+  });
+
   return (
     <div>
       <h1>Top 5 CSS Colors</h1>
       <ol>
-        <li style={{ color: colors[0] }}>{colors[0]}</li>
-        <li style={{ color: colors[1] }}>{colors[1]}</li>
-        <li style={{ color: colors[2] }}>{colors[2]}</li>
-        <li style={{ color: colors[3] }}>{colors[3]}</li>
-        <li style={{ color: colors[4] }}>{colors[4]}</li>
+        {colorElements}
       </ol>
     </div>
   );
